@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@google/generative-ai"></script> 
+</head>
+<body style="background-color: #f4f7fc; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <style>
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    
+    </style>
+    <form onsubmit="return false;">
+        <input type="file" id="chosenImage" name="chosen-image">
+        <div class="prompt-box">
+            <label>
+            <input name="prompt" id="prompt" placeholder="Enter instructions here" type="text"
+            value="que représente cette image ?">
+            </label>
+            <button type="submit" id="submitBtn">Go</button>
+        </div>
+    </form>
+    <p class="result">Resultats : </p>
+
+  
+
+    <script src="script.js"></script>
+</body>
+</html>
