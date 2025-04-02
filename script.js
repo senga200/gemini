@@ -24,7 +24,8 @@ submitButton.addEventListener("click", async (e) => {
     let reader = new FileReader();
     console.log("file", file);
     reader.onload = async () => {
-        let image = reader.result; 
+        try{
+            let image = reader.result; 
         console.log("image", image);
         //split pour recuperer après la virgule : data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD etc...
         //avant la virgule c'est le type de l'image
@@ -42,11 +43,21 @@ submitButton.addEventListener("click", async (e) => {
             }),
         });
 
+        if(!response.ok){
+            throw new Error("erreur API", response.statusText);
+        }
+
+
         let data = await response.json();
         console.log("data", data);
         result.innerHTML = data.candidates?.[0]?.content?.parts?.[0]?.text || "Erreur.";
         console.log("candidates", data.candidates);
-    };
+    } catch(error){
+        console.log("erreur", error);
+        result.innerHTML="erreur catchée";
+
+    }
+        }
 
     reader.readAsDataURL(file); // Lire le fichier et le convertir
 });
