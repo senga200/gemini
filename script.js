@@ -2,12 +2,18 @@ console.log("Hello, World!");
 
 let API_KEY = 'AIzaSyDDdgZRtt__GDiz2RvkEWTEb7hR9AmF73Q';
 
-
+// 1er bloc : image + texte
 const submitButton = document.getElementById("submitBtn");
 const input = document.getElementById("prompt");
 const result = document.querySelector(".result");
 const fileInput = document.getElementById("chosenImage");
 
+// 2ème bloc : texte
+const submitButtonText = document.getElementById("submitBtnText");
+const inputText = document.getElementById("promptText");
+const resultText = document.querySelector(".bloc:last-of-type .result");
+
+//pour le 1er bloc
 submitButton.addEventListener("click", async (e) => {
     e.preventDefault(); 
 
@@ -60,4 +66,37 @@ submitButton.addEventListener("click", async (e) => {
         }
 
     reader.readAsDataURL(file); // Lire le fichier et le convertir
+});
+
+
+// pour le 2ème bloc 
+submitButtonText.addEventListener("click", async (e) => {
+    e.preventDefault(); 
+
+    resultText.innerHTML = "Recherche en cours...";
+
+    let inputValue = inputText.value;
+
+    try{
+        let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                //envoi dans le body la requete
+                contents: [{ role: "user", parts: [{ text: inputValue }] }]
+            }),
+        });
+
+        if(!response.ok){
+            throw new Error("erreur API", response.statusText);
+        }
+        let data = await response.json();
+        console.log("data", data);
+        resultText.innerHTML = data.candidates?.[0]?.content?.parts?.[0]?.text || "Erreur.";
+        console.log("candidates", data.candidates);
+    } catch(error){
+        console.log("erreur", error);
+        resultText.innerHTML="erreur catchée";
+
+    }
 });

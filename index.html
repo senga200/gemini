@@ -9,14 +9,14 @@
 <body style="background-color: #f4f7fc; display: flex; justify-content: center; align-items: center; flex-direction: column;">
     <style>
         input {
-            width: 100%;
-            padding: 10px;
+            width: 95%;
+            padding: 20px;
             margin: 10px 0;
             font-size: 16px;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #4caf99;
             color: white;
             padding: 10px;
             cursor: pointer;
@@ -24,25 +24,70 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #45a0a0;
         }
+
+        .bloc{
+            margin: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            width: 650px;
+            background-color: thistle;
+            padding: 2.5rem;
+            border-radius: 10px;
+        }
+        .prompt-box {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .prompt-box label {
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+
 
     
     </style>
-    <form onsubmit="return false;">
-        <input type="file" id="chosenImage" name="chosen-image">
-        <div class="prompt-box">
-            <label>
-            <input name="prompt" id="prompt" placeholder="Enter instructions here" type="text"
-            value="que représente cette image ?">
-            </label>
-            <button type="submit" id="submitBtn">Go</button>
-        </div>
-    </form>
-    <p class="result">Resultats : </p>
+    <div class="bloc">
+        <h2>Pose une question d'après l'image</h2>
+        <form onsubmit="return false;">
+            <input type="file" id="chosenImage" name="chosen-image">
+            <div class="prompt-box">
+                <label>
+                    <p>Pose une question concernant l'image, par exemple : </p>
+                <input name="prompt" id="prompt" placeholder="Enter instructions here" type="text"
+                value="que représente l'image?" style="padding-left: 10px;">
+                </label>
+                <button type="submit" id="submitBtn">Go</button>
+            </div>
+        </form>
+        <p class="result">Resultats : </p>
+        
+    </div>
+    <div class="bloc">
+        <h2>Pose une question sur le texte</h2>
+        <form onsubmit="return false;">
+            <div class="prompt-box">
+                <label>
+                    <p>pose moi une question</p>
+                <input name="prompt" id="promptText" placeholder="Enter instructions here" type="text"
+                value="Quelle est la date de la révolution française?" style="padding-left: 10px;">
+                </label>
+                <button type="submit" id="submitBtnText">Go</button>
+            </div>
+        </form>
+        <p class="result">Resultats : </p>
 
-  
+
+    </div>
+
 
     <script src="script.js"></script>
+
 </body>
 </html>
