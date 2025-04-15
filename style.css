@@ -1,0 +1,151 @@
+
+body {
+    background-color: #f4f7fc;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.titre{
+    font-size: 2.5rem;
+    color: #4caf99;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.bloc-text,
+.bloc-image,
+.bloc-agent-quizz,
+.bloc-agent-film{
+    margin: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 650px;
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bloc-text:hover,
+.bloc-image:hover,
+.bloc-agent-quizz:hover,
+.bloc-agent-film:hover  {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    width: 100%;
+    padding: 20px 20px 20px 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #4caf99;
+}
+
+/* ----- BUTTONS ----- */
+button {
+    background-color: #4caf99;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #45a0a0;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+#submitBtnAgent {
+    margin-top: 1rem;
+    position: relative;
+    background-color: #4caf99;
+}
+
+#submitBtnAgent:active {
+    background-color: #7d2ae8;
+    box-shadow:
+        inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+        inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+
+.prompt-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.prompt-box label {
+    margin-bottom: 10px;
+}
+
+.result,
+.text-result,
+.agent-result {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.agent-result {
+    display: none;
+}
+
+.proposition,
+.propositionFilm {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: #4caf99;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.proposition:hover,
+.propositionFilm:hover {
+    background-color: #45a0a0;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin: 1rem;
+    color: #222;
+}
+
+
+@media (max-width: 700px) {
+    .bloc-text,
+    .bloc-image,
+    .bloc-agent {
+        width: 90%;
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}

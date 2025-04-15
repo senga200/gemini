@@ -5,63 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/@google/generative-ai"></script> 
+    <link href="style.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a099928dd3.js" crossorigin="anonymous"></script>
 </head>
 <body style="background-color: #f4f7fc; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <style>
-        input {
-            width: 95%;
-            padding: 20px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        button {
-            background-color: #4caf99;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a0a0;
-        }
-
-        .bloc{
-            margin: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            width: 650px;
-            background-color: thistle;
-            padding: 2.5rem;
-            border-radius: 10px;
-        }
-        .prompt-box {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-        .prompt-box label {
-            margin-bottom: 10px;
-        }
-        .result {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-
-
     
-    </style>
-    <div class="bloc">
-        <h2>Pose une question d'après l'image</h2>
+
+    <div class="bloc-text">
+        <div class="titre">
+            <h2>Pose une question au format texte</h2>
+            <i class="fa-solid fa-font"></i>
+        </div>
+        <form onsubmit="return false;">
+            <div class="prompt-box">
+                <label>
+                    <p>pose moi une question, comme par exemple "Quelle est la date de la révolution française"</p>
+                <input name="prompt" id="promptText" placeholder="poser la question..." type="text"
+                value="" style="padding-left: 10px;">
+                </label>
+                <button type="submit" id="submitBtnText">Go</button>
+            </div>
+        </form>
+        <p class="text-result">Resultats : </p>
+
+
+    </div>
+    <div class="bloc-image">
+        <div class="titre">
+            <h2>Pose une question d'après l'image</h2> 
+            <i class="fa-solid fa-image"></i>
+        </div>
         <form onsubmit="return false;">
             <input type="file" id="chosenImage" name="chosen-image">
             <div class="prompt-box">
                 <label>
-                    <p>Pose une question concernant l'image, par exemple : </p>
-                <input name="prompt" id="prompt" placeholder="Enter instructions here" type="text"
-                value="que représente l'image?" style="padding-left: 10px;">
+                    <p>Pose une question concernant l'image, par exemple : "que représente l'image"</p>
+                <input name="prompt" id="prompt" placeholder="poser la question..." type="text"
+                value="" style="padding-left: 10px;">
                 </label>
                 <button type="submit" id="submitBtn">Go</button>
             </div>
@@ -69,22 +49,56 @@
         <p class="result">Resultats : </p>
         
     </div>
-    <div class="bloc">
-        <h2>Pose une question sur le texte</h2>
+    <div class="bloc-agent-film">
+        <div class="titre">
+            <i class="fa-solid fa-user-tie"></i>
+            <h2>Demande à l'agent cinéfile de proposer un film à regarder ce soir</h2>
+            <i class="fa-solid fa-film"></i>
+        </div>
+        <form onsubmit="return false;">
+            <div class="prompt-box">
+            </div>
+        </form>
+        <button class="propositionFilm">Action / aventure</button>
+        <button class="propositionFilm">Familial</button>
+        <button class="propositionFilm">Comédie</button>
+        <button class="propositionFilm">Science fiction</button>
+        <button class="propositionFilm">Drame</button>
+        <p class="agent-result-film"></p>
+    </div>
+    <div class="bloc-agent-quizz">
+        <div class="titre">
+            <i class="fa-solid fa-user-tie"></i>
+            <h2>L'agent spécialisé dans la musique des années 1970 à 2000 pose une question</h2>
+            <i class="fa-solid fa-music"></i>
+        </div>
         <form onsubmit="return false;">
             <div class="prompt-box">
                 <label>
-                    <p>pose moi une question</p>
-                <input name="prompt" id="promptText" placeholder="Enter instructions here" type="text"
-                value="Quelle est la date de la révolution française?" style="padding-left: 10px;">
                 </label>
-                <button type="submit" id="submitBtnText">Go</button>
+                <button type="submit" id="submitBtnAgent">cliquez pour générer une question musique concernant la période de 1970 à 2000</button>
             </div>
         </form>
-        <p class="result">Resultats : </p>
+        <p id="questionGenerator"> </p>
+        <button class="proposition" >
+            proposition 1
+        </button>
 
+        <button class="proposition" >
+            proposition 2
+        </button>
+
+        <button class="proposition" >
+            proposition 3
+        </button>
+
+        <button class="proposition" >
+            proposition 4
+        </button>
+        <p class="agent-result">Resultats : </p>
 
     </div>
+
 
 
     <script src="script.js"></script>
