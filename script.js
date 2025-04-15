@@ -1,4 +1,3 @@
-//const { GenerativeModel } = require("@google/generative-ai");
 
 
 
@@ -120,19 +119,22 @@ propositionButtonsFilm.forEach((btn) => {
     console.log("Genre sélectionné :", genre);
 
     const prompt = `
-    Tu es un assistant virtuel spécialisé dans la recommandation de films. Ta mission est de me proposer un film à regarder en fonction du genre que je t'indique.
+Tu es un assistant virtuel spécialisé dans la recommandation de films. Ta mission est de me proposer **une suggestion de film pertinente et variée** à regarder en fonction du genre que je t'indique. **Essaie d'éviter de répéter les mêmes suggestions ou de choisir systématiquement les films les plus populaires ou les plus évidents du genre demandé.**
 
-    Si je te demande :
-        "Propose-moi un film ${genre}."
-        Tu me réponds :
-        {
-            "film": "Titre du film",
-            "genre": "${genre}",
-            "année": "Année de sortie",
-            "synopsis": "Description du film."
-        }
+Quand je te demande :
+    "Propose-moi un film ${genre}."
 
-        Maintenant, propose-moi un film ${genre} en suivant le même format JSON strict, sans ajouter de commentaires ni de texte hors du JSON.
+Tu dois **impérativement** répondre **UNIQUEMENT** avec le JSON suivant, sans aucune phrase d'introduction, d'explication ou de conclusion :
+{
+    "film": "Titre du film",                 // Le titre exact du film proposé
+    "genre": "${genre}",                     // Le genre que j'ai demandé, ou un sous-genre très proche
+    "année": "Année de sortie",             // L'année de sortie (juste l'année, ex: 1999)
+    "synopsis": "Un court résumé pertinent." // Un synopsis concis (1-3 phrases)
+}
+
+**Important :** La clé pour varier les suggestions est de ne pas toujours choisir le film le plus connu pour le genre ${genre}. Explore des options peut-être un peu moins courantes mais toujours représentatives et de qualité.
+
+Maintenant, exécute la tâche : propose-moi un film ${genre} en respectant **strictement** ce format JSON et les instructions de variété.
     `;
 
     try {
