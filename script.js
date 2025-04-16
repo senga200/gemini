@@ -3,30 +3,12 @@
 
 let API_KEY = 'AIzaSyDDdgZRtt__GDiz2RvkEWTEb7hR9AmF73Q';
 
-//  bloc 1 : texte
+
+// --------------- BLOC 1 : TEXTE ------------------
 const submitButtonText = document.getElementById("submitBtnText");
 const inputText = document.getElementById("promptText");
 const resultText = document.querySelector(".text-result");
 
-// bloc 2 : image + texte
-const submitButton = document.getElementById("submitBtn");
-const input = document.getElementById("prompt");
-const result = document.querySelector(".result");
-const fileInput = document.getElementById("chosenImage");
-
-// bloc 3 : agent film 
-const propositionButtonsFilm = document.querySelectorAll(".propositionFilm");
-const resultAgentFilm = document.querySelector(".agent-result-film");
-
-
-// bloc 3 : agent quizz musique
-const submitButtonAgent = document.getElementById("submitBtnAgent");
-const resultAgent = document.querySelector(".agent-result");
-const generatedQuestionElement = document.getElementById("questionGenerator");
-const propositionButtons = document.querySelectorAll(".proposition");
-
-
-// --------------- BLOC 1 : TEXTE ------------------
 submitButtonText.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -47,13 +29,20 @@ submitButtonText.addEventListener("click", async (e) => {
         }
 
         let data = await response.json();
+        console.log("data", data);
         resultText.innerHTML = data.candidates?.[0]?.content?.parts?.[0]?.text || "Erreur.";
+        console.log("data.candidates.content.parts.text", data.candidates?.[0]?.content?.parts?.[0]?.text);
     } catch (error) {
         console.log("erreur", error);
         resultText.innerHTML = "Erreur attrapée dans le bloc texte.";
     }
 });
 // --------------- BLOC 2 : IMAGE + TEXTE ------------------
+const submitButton = document.getElementById("submitBtn");
+const input = document.getElementById("prompt");
+const result = document.querySelector(".result");
+const fileInput = document.getElementById("chosenImage");
+
 submitButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -67,11 +56,11 @@ submitButton.addEventListener("click", async (e) => {
     }
 
     let reader = new FileReader();
-
+//split pour recuperer après la virgule : data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD etc...
+         //avant la virgule c'est le type de l'image
     reader.onload = async () => {
         try {
             let image = reader.result;
-            let type = image.split(",")[0];
             let imageBase64 = image.split(",")[1];
 
             let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
@@ -99,11 +88,14 @@ submitButton.addEventListener("click", async (e) => {
             result.innerHTML = "Erreur attrapée dans le bloc image.";
         }
     };
-
+// Lire le fichier et le convertir
     reader.readAsDataURL(file);
 });
 
 // --------------- BLOC 3 : AGENT PROPOSITION FILM------------------
+const propositionButtonsFilm = document.querySelectorAll(".propositionFilm");
+const resultAgentFilm = document.querySelector(".agent-result-film");
+
 propositionButtonsFilm.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -172,7 +164,12 @@ Maintenant, exécute la tâche : propose-moi un film ${genre} en respectant **st
     });
 });
 
-// --------------- BLOC 3 : AGENT QUIZZ MUSIQUE ------------------
+// --------------- BLOC 4 : AGENT QUIZZ MUSIQUE ------------------
+const submitButtonAgent = document.getElementById("submitBtnAgent");
+const resultAgent = document.querySelector(".agent-result");
+const generatedQuestionElement = document.getElementById("questionGenerator");
+const propositionButtons = document.querySelectorAll(".proposition");
+
 submitButtonAgent.addEventListener("click", async (e) => {
     e.preventDefault();
 
