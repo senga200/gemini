@@ -11,3 +11,34 @@
   "type": "module",
 
   pour basculer en module ES et accepter de faire des fetchs !!
+
+
+  pour faire fonctionner letta et son agent :
+  modifier l'url à fetcher : http://localhost:3000/proxy?url=http://localhost:8283/v1/agents/agent-9fffcce6-08b0-463e-bf5a-a476b0ac19ef/messages
+  (cf swagger http://localhost:8283/docs)
+  nb : GET => http://localhost:8283/v1/agents/agent-9fffcce6-08b0-463e-bf5a-a476b0ac19ef
+
+  modifier :
+  => body: JSON.stringify({
+                contents: [{ role: "user", parts: [{ text: prompt }] }]
+            }), 
+
+  en 
+  => body: JSON.stringify({
+                messages: [{ role: "user",
+                content: prompt}
+                    ]}),
+
+et concernant l'agent LETTA : 
+docker run   -v ~/.letta/.persist/pgdata:/var/lib/postgresql/data   -p 8283:8283   -e GEMINI_API_KEY="AIzaSyDDdgZRtt__GDiz2RvkEWTEb7hR9AmF73Q"   letta/letta:latest
+
+et normalement : 
+docker ps
+CONTAINER ID  IMAGE                 COMMAND                  CREATED        STATUS        PORTS                                                                
+d3192650be47  letta/letta:latest   "/usr/local/bin/dock…"   17 hours ago   Up 17 hours   4317-4318/tcp, 5432/tcp, 0.0.0.0:8283->8283/tcp, :::8283->8283/tcp  
+ NAMES nervous_swartz
+
+
+ accessible sur http://localhost:8283
+
+ + créer l'agent cf screenshot
