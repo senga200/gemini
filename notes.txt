@@ -1,0 +1,13 @@
+- express pour la gestion de cors 
+  npm i express
+  npm init -y
+  npm install cors
+  ** demarrer avec node server.js
+  
+  ajouter dans package.json  "type": "module",
+  par ex 
+  "name": "test-vanilla",
+  "version": "1.0.0",
+  "type": "module",
+
+  pour basculer en module ES et accepter de faire des fetchs !!
