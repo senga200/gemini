@@ -13,10 +13,12 @@
   pour basculer en module ES et accepter de faire des fetchs !!
 
 
-  pour faire fonctionner letta et son agent :
+  pour faire fonctionner letta et son agent en local sur un port 3000 :
   modifier l'url à fetcher : http://localhost:3000/proxy?url=http://localhost:8283/v1/agents/agent-9fffcce6-08b0-463e-bf5a-a476b0ac19ef/messages
   (cf swagger http://localhost:8283/docs)
   nb : GET => http://localhost:8283/v1/agents/agent-9fffcce6-08b0-463e-bf5a-a476b0ac19ef
+
+
 
   modifier :
   => body: JSON.stringify({
@@ -40,7 +42,6 @@ ex de requete du coup dans postman :
   ]
 }
 
-
 et concernant l'agent LETTA : 
 docker run   -v ~/.letta/.persist/pgdata:/var/lib/postgresql/data   -p 8283:8283   -e GEMINI_API_KEY="AIzaSyDDdgZRtt__GDiz2RvkEWTEb7hR9AmF73Q"   letta/letta:latest
 
@@ -54,6 +55,13 @@ d3192650be47  letta/letta:latest   "/usr/local/bin/dock…"   17 hours ago   Up 
  accessible sur http://localhost:8283
 
  + créer l'agent cf screenshot
+
+
+   si clé api letta : 
+  https://api.letta.com/v1/agents/agent-85cfbc6c-09ac-41ec-bd79-e8dbb836fb49/messages
+  et ajouter dans le header : 
+ "Authorization": "Bearer sk-let-YmNjNDZkZjctYzU1ZS00ZDA5LWIyZWYtZjM2OTk3MjgyMjgzOmM5ODIxODM5LWU1YzQtNDE4ZS05YzBkLWJjOWVjMmE3YWIwNA=="
+
 
 
  

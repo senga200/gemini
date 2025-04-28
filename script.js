@@ -232,19 +232,30 @@ submitButtonAgent.addEventListener("click", async (e) => {
     `;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+        const response = await fetch("https://api.letta.com/v1/agents/agent-c4800ed5-5141-4590-93ea-30363f40d391/messages", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": "Bearer sk-let-YmNjNDZkZjctYzU1ZS00ZDA5LWIyZWYtZjM2OTk3MjgyMjgzOmM5ODIxODM5LWU1YzQtNDE4ZS05YzBkLWJjOWVjMmE3YWIwNA=="
+            },
             body: JSON.stringify({
-                contents: [{ role: "user", parts: [{ text: prompt }] }]
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt
+                    }
+                ]
             }),
         });
 
         if (!response.ok) throw new Error("Erreur API : " + response.statusText);
 
         const data = await response.json();
-        let resultText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        //let resultText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
         // Nettoyage du JSON (suppression éventuelle des ```json et ```)
+        //resultText = resultText.replace(/```json|```/g, "").trim();
+        let resultText = data?.messages?.[1]?.content || "";
+
         resultText = resultText.replace(/```json|```/g, "").trim();
         
         const quiz = JSON.parse(resultText);
