@@ -139,6 +139,13 @@ h2 {
     color: #222;
 }
 
+.nomModele{
+    display: flex;
+    justify-content: center;
+    font-style: italic;
+    color: dimgray;
+}
+
 
 @media (max-width: 700px) {
     .bloc-text,
