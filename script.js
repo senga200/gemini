@@ -130,33 +130,41 @@ Maintenant, exécute la tâche : propose-moi un film ${genre} en respectant **st
     `;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+        const response = await fetch("https://api.letta.com/v1/agents/agent-85cfbc6c-09ac-41ec-bd79-e8dbb836fb49/messages", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": "Bearer sk-let-YmNjNDZkZjctYzU1ZS00ZDA5LWIyZWYtZjM2OTk3MjgyMjgzOmM5ODIxODM5LWU1YzQtNDE4ZS05YzBkLWJjOWVjMmE3YWIwNA=="
+            },
             body: JSON.stringify({
-                contents: [{ role: "user", parts: [{ text: prompt }] }]
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt
+                    }
+                ]
             }),
         });
 
         if (!response.ok) throw new Error("Erreur API : " + response.statusText);
 
         const data = await response.json();
-        let resultText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-        // Nettoyage du JSON (suppression éventuelle des ```json et ```)
+        console.log("Réponse brute :", data);
+
+        let resultText = data?.messages?.[1]?.content || "";
+
         resultText = resultText.replace(/```json|```/g, "").trim();
-        
+
         const movie = JSON.parse(resultText);
 
         resultAgentFilm.innerHTML = `
-        <strong>Film :</strong> ${movie.film} <br>
-        <strong>Genre :</strong> ${movie.genre} <br>
-        <strong>Année :</strong> ${movie.année} <br>
-        <strong>Synopsis :</strong> ${movie.synopsis}
+            <strong>Film :</strong> ${movie.film} <br>
+            <strong>Genre :</strong> ${movie.genre} <br>
+            <strong>Année :</strong> ${movie.année} <br>
+            <strong>Synopsis :</strong> ${movie.synopsis}
         `;
         resultAgentFilm.style.display = "block";
-        console.log(movie);
-
-    } catch (error) {
+    }  catch (error) {
         console.error("Erreur attrapée :", error);
         resultAgentFilm.innerHTML = "❌ Une erreur est survenue lors de la génération.";
         resultAgentFilm.style.display = "block";
