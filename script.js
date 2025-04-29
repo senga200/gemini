@@ -2,6 +2,21 @@
 
 
 let API_KEY = 'AIzaSyDDdgZRtt__GDiz2RvkEWTEb7hR9AmF73Q';
+// --------------- LIMITER LES CLICS POUR LES AGENTS ------------------
+function isClickAllowed(key) {
+    const now = Date.now();
+    const stored = JSON.parse(localStorage.getItem(key)) || [];
+
+    // filtrer les clics datant de - D'H
+    const recentClicks = stored.filter(ts => now - ts < 60 * 60 * 1000);
+
+    if (recentClicks.length >= 5) return false;
+
+    // ajouter le clic actuel et MAJ stockage
+    recentClicks.push(now);
+    localStorage.setItem(key, JSON.stringify(recentClicks));
+    return true;
+}
 
 
 // --------------- BLOC 1 : TEXTE ------------------
@@ -99,6 +114,11 @@ const resultAgentFilm = document.querySelector(".agent-result-film");
 propositionButtonsFilm.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
         e.preventDefault();
+        if (!isClickAllowed("filmClicks")) {
+            resultAgentFilm.innerHTML = "popopop, les requetes sont precieuses... attends une heure";
+            resultAgentFilm.style.display = "block";
+            return;
+        }
 
     for (const btn of propositionButtonsFilm) {
         btn.classList.remove("selected");
@@ -180,6 +200,12 @@ const propositionButtons = document.querySelectorAll(".proposition");
 
 submitButtonAgent.addEventListener("click", async (e) => {
     e.preventDefault();
+
+    if (!isClickAllowed("quizClicks")) {
+        resultAgentFilm.innerHTML = "popopop, les requetes sont precieuses... attends une heure";
+        resultAgentFilm.style.display = "block";
+        return;
+    }
 
     resultAgent.style.display = "none";
     resultAgent.innerHTML = "";
